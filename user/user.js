@@ -17,14 +17,17 @@ function getLastConversationIndex() {
 window.addEventListener("load", async () =>{
     await init();
     let currentIndex = getLastConversationIndex();  
-    let systemMessage = allConversation[currentIndex].messages[0].content
+    let systemMessage = allConversation[currentIndex].messages[1].content
     conservationEl.innerHTML += systemMessage
 })
 
 async function init() {
   let newConversation = { id: allConversation.length, messages: [] };
   allConversation.push(newConversation);
-  newConversation.messages.push({ role: "system", content: "Hello, how can I help you ?" });
+  newConversation.messages.push(
+    { role: "system", content: localStorage.getItem("savedPromptBehaviorAi") }, 
+    { role: "system", content: "Hello, how can I help you ?" }
+  );
 }
 
 /**
@@ -83,10 +86,9 @@ async function displayConversation() {
     let conversationList = document.createElement('ul');
     conversationList.classList.add('conversation-list');
 
-    conversation.forEach((message) => {
-
+    for(let i = 1; i < conversation.length; i++){
+      let message = conversation[i];
       let messageItem = document.createElement('li');
-
       messageItem.textContent = message.content;
 
       if(message.role === 'user'){
@@ -104,9 +106,10 @@ async function displayConversation() {
       messageItem.style.width = textWidth + 'px';
       
       conversationList.appendChild(messageItem);
-    });
+   
+    };
+ 
     conservationEl.innerHTML = '';
-
     conservationEl.appendChild(conversationList);
 }
 
