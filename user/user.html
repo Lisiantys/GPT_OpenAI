@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="user.css">
     <title>CONVERSATION PANNEL</title>
-    <style>
-
-    </style>
 </head>
 
 <body>
@@ -16,14 +13,12 @@
         <h1>OPEN-AI CONVERSATION</h1>
         <a href="../admin/admin.html">Admin Page</a>
 
-        <div class="conversation">
+        <div class="conversation" id="conversation">
             <!-- Messages will be displayed here -->
         </div>
-        <form>
-            <input type="text" placeholder="Type your prompt here..." />
-            <input type="submit" value="Send" />
-        </form>
+        <input type="text" id="userInput" placeholder="Type your prompt here..." />
+        <button id="send-btn">Envoyer</button>
+        <script src="user.js"></script>
     </div>
 </body>
-
 </html>
