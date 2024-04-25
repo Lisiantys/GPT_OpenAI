@@ -8,14 +8,16 @@ const OPEN_AI_KEY = new OpenAI({
 let allConversation = [];
 
 async function init() {
-  allConversation.push({ id: allConversation.length, messages: [] });
-
+  let newConversation = { id: allConversation.length, messages: [] };
+  allConversation.push(newConversation);
+  newConversation.messages.push({ role: "system", content: "Hello, how can I help you ?"});
+  console.log(newConversation)
 }
 
-async function send(index, userMessage, role="user") {
+async function send(index, userMessage) {
   //Contient la conversation actuelle, 1 interaction = 1 objet (key: role, content)
   let currentConversation = allConversation[index].messages
-  currentConversation.push({ role: role, content: userMessage });
+  currentConversation.push({ role: "user", content: userMessage });
   let messages = currentConversation.map((obj) => ({
     role: obj.role,
     content: obj.content,
