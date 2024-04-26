@@ -1,9 +1,8 @@
-const OPENAI_API_KEY = ""; //Enter your API KEY;
+const OPENAI_API_KEY = localStorage.getItem('openaiApiKey');
 const conservationEl = document.querySelector("#conversation");
 const inputEl = document.querySelector("#userInput");
 const btnEl = document.querySelector("#send-btn");
 const containerConversationEl = document.querySelector("#conversation-list-container");
-const createConversationEl = document.querySelector("#create-conversation");
 
 //Contient une liste d'array/ de conversation. chaque conversation à des objets (interactions entre 2 acteurs).
 let allConversation = [];
@@ -31,22 +30,25 @@ function getLastConversationIndex() {
  * Afficher la dernière conversation
  */
 window.addEventListener("load", async () => {
-  let getConversationHistory = JSON.parse(
-    localStorage.getItem("messageConversation")
-  );
-  if (getConversationHistory) {
-    allConversation = getConversationHistory;
-    await displayListConversation();
-    await displayConversationAtIndex(getLastConversationIndex());
+  if (!OPENAI_API_KEY || typeof OPENAI_API_KEY !== 'string' || OPENAI_API_KEY.length !== 51) {
+    window.location.href = '../index.html';
   } else {
-    await createConversation();
-    await displayConversationAtIndex(getLastConversationIndex());
+    let getConversationHistory = JSON.parse(
+      localStorage.getItem("messageConversation")
+    );
+    if (getConversationHistory) {
+      allConversation = getConversationHistory;
+      await displayListConversation();
+      await displayConversationAtIndex(getLastConversationIndex());
+    } else {
+      await createConversation();
+      await displayConversationAtIndex(getLastConversationIndex());
+    }
   }
 });
 
 // Affiche la liste des conversations avec un bouton pour chaque conversation
 async function displayListConversation() {
-  let lastIndex = getLastConversationIndex();
   containerConversationEl.innerHTML = '';
   for (let i = 0; i < allConversation.length; i++) {
       containerConversationEl.innerHTML +=
