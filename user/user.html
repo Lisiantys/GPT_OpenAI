@@ -5,13 +5,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="user.css">
-    <title>CONVERSATION PANNEL</title>
+    <title>CHAPT GPT - 5.0</title>
 </head>
 
 <body>
     <div class="container">
-        <h1>OPEN-AI CONVERSATION</h1>
+        <h1>CHAT-GTP 5.0</h1>
         <a href="../admin/admin.html">Admin Page</a>
+        <button id="new-conversation" onclick="createNewConversation()">Create new conversation</button>
+
+        <div id="conversation-list-container">
+            <!-- Conversation list will be displayed here -->
+        </div>
 
         <div class="conversation" id="conversation">
             <!-- Messages will be displayed here -->
